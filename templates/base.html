@@ -1,0 +1,10 @@
+<html>
+<body>
+    {% block topo %}
+    <img src="{{url_for('static', filename='images/generic_logo.gif')}}"><br />
+    <menu><ul><li>HOME</li><li>CADASTRO</li></ul></menu>
+    {% endblock %}
+    <hr />
+    {% block content%}<!-- page content -->{% endblock%}
+</body>
+</html>
