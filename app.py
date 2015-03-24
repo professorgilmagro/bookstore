@@ -2,7 +2,8 @@
 
 import os
 from werkzeug import secure_filename
-from flask import (
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask import ( 
     Flask, request, current_app, send_from_directory, render_template,
     jsonify, escape, url_for
 )
@@ -11,11 +12,12 @@ app = Flask("bookstore")
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 app.config['MEDIA_ROOT'] = os.path.join(PROJECT_ROOT, 'media_files')
-
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:admin@localhost/bookstore"
+db = SQLAlchemy(app)
 
 @app.route("/")
 def hello_world():
-    return '<h1>Bem vindo à Biblioteca digital</h1>', 200
+    return render_template('index.html', user_name='Convidado')
 
 
 @app.route("/<name>")
