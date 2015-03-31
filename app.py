@@ -1,9 +1,9 @@
 # coding: utf-8
 
 import os
-from werkzeug import secure_filename
+from models import *
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask import ( 
+from flask import (
     Flask, request, current_app, send_from_directory, render_template,
     jsonify, escape, url_for
 )
@@ -14,6 +14,7 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 app.config['MEDIA_ROOT'] = os.path.join(PROJECT_ROOT, 'media_files')
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:admin@localhost/bookstore"
 db = SQLAlchemy(app)
+
 
 @app.route("/")
 def hello_world():
@@ -27,6 +28,12 @@ def index(name):
 
     return "Not Found", 404
 
+
+@app.route("/usuarios")
+def users():
+    return render_template('usuarios.html', users=User.query.all())
+
+    return "Not Found", 404
 
 @app.route("/<clientes>/json")
 def json_api():
